@@ -1,0 +1,34 @@
+version: "3"
+services:
+  nginx:
+    image: ctf_nginx:latest
+    ports: 
+      - "80:80"
+    depends_on:
+      - ctf_frontend
+    links:
+      - ctf_frontend
+  ctf_frontend:
+    image: nithinwe45/ctf_frontend:latest
+    environment:
+      - CTF_NODEJS_IP=ctf_nodejs
+    expose:
+      - "5000"
+    ports:
+      - "5000:5000"
+  ctf_nodejs:
+    image: nithinwe45/ctf_nodejs:latest
+    environment:
+      - MONGO_IP=mongo_db
+    expose:
+      - "3000"
+    ports:
+      - "3000:3000"
+    depends_on:
+      - mongo_db
+  mongo_db:
+    image: nithinwe45/ctf_mongo:latest
+    expose:
+      - "27017"
+    ports:
+      - "27017:27017"
