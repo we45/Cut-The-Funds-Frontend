@@ -1,15 +1,15 @@
 version: "3"
 services:
   nginx:
-    image: ctf_nginx:latest
-    ports: 
+    image: we45/cut-the-funds-nginx:latest
+    ports:
       - "80:80"
     depends_on:
       - ctf_frontend
     links:
       - ctf_frontend
   ctf_frontend:
-    image: nithinwe45/ctf_frontend:latest
+    image: we45/cut-the-funds-frontend:latest
     environment:
       - CTF_NODEJS_IP=ctf_nodejs
     expose:
@@ -17,18 +17,33 @@ services:
     ports:
       - "5000:5000"
   ctf_nodejs:
-    image: nithinwe45/ctf_nodejs:latest
+    image: we45/cut-the-funds-nodejs:latest
     environment:
       - MONGO_IP=mongo_db
+      - MYSQL_IP=mysql_db
+      - MYSQL_USER=$DB_USER
+      - MYSQL_PASSWORD=$DB_PASSWD
+      - MYSQL_DATABASE=expenses
     expose:
       - "3000"
     ports:
       - "3000:3000"
+    command: sh -c "./wait-for mongo_db:27017 -- pm2 start --no-daemon ./bin/www"
     depends_on:
       - mongo_db
+      - mysql_db
   mongo_db:
-    image: nithinwe45/ctf_mongo:latest
+    image: we45/cut-the-funds-mongodb:latest
     expose:
       - "27017"
     ports:
       - "27017:27017"
+  mysql_db:
+    image: we45/cut-the-funds-mysql:latest
+    environment:
+      - MYSQL_DATABASE=expenses
+      - MYSQL_ROOT_PASSWORD=$DB_PASSWD
+    expose:
+      - "3306"
+    ports:
+      - "3306:3306"
