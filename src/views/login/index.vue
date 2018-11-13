@@ -46,6 +46,7 @@
 </template>
 
 <script>
+import conf from '../../../configure.json'
   import axios from 'axios'
     export default {
       name: 'Login',
@@ -67,7 +68,7 @@
       methods: {
 
         onSubmit() {
-           let api_url = process.env.API_URL || 'http://localhost:3000';
+        let api_url = conf.API_URL
           let fullLoginUrl = api_url+'/users/login/'
           const formData = {
             email: this.email,
