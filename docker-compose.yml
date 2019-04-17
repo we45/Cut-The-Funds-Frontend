@@ -1,7 +1,9 @@
 version: "3"
 services:
   nginx:
-    image: we45/cut-the-funds-nginx:latest
+    image: nginx:latest
+    volumes:
+      - ./nginx.conf:/etc/nginx/conf.d/app.conf
     ports:
       - "80:80"
     depends_on:
@@ -21,8 +23,8 @@ services:
     environment:
       - MONGO_IP=mongo_db
       - MYSQL_IP=mysql_db
-      - MYSQL_USER=$DB_USER
-      - MYSQL_PASSWORD=$DB_PASSWD
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=Test@1234
       - MYSQL_DATABASE=expenses
     expose:
       - "3000"
@@ -42,7 +44,7 @@ services:
     image: we45/cut-the-funds-mysql:latest
     environment:
       - MYSQL_DATABASE=expenses
-      - MYSQL_ROOT_PASSWORD=$DB_PASSWD
+      - MYSQL_ROOT_PASSWORD=Test@1234
     expose:
       - "3306"
     ports:
