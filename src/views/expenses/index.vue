@@ -174,7 +174,6 @@
 </template>
 
 <script>
-  import modal from '@/components/Modal/modal'
   import axios from '@/utils/auth'
   import swal from 'sweetalert';
 

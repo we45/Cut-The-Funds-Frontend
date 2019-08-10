@@ -144,10 +144,8 @@
 </template>
 
 <script>
-  // import ProjectsTable from '@/components/Tables/ProjectsTable'
   import modal from '@/components/Modal/modal'
   import userAxios from '@/utils/auth'
-  import axios from 'axios'
 
   const items = []
   export default {
@@ -196,25 +194,11 @@
       fetchData() {
         userAxios.get('/projects/list_projects/')
           .then(res => {
-            if (res.status === 200) {
-              for ([key, val] of Object.entries(res.data)) {
-                this.items.push({name: val.name, manager: val.manager.email, limit: val.limit, remarks: val.remarks, _id: val._id})
+            for (const val of res.data){
+            this.items.push({name: val.name, manager: val.manager.email, limit: val.limit, remarks: val.remarks, _id: val._id})
               }
-            } else {
-              this.$router.push('/forbidden')
-            }
           }).catch(error => {
-          if (error.response.status === 404) {
-            this.$router.push('/not_found')
-          } else if (error.response.status === 403) {
-            localStorage.removeItem('token');
-            localStorage.removeItem('userType');
-            localStorage.removeItem('email');
-            // this.$router.push({path: '/'})
-            window.location.href = "/"
-          } else {
-            this.$router.push('/forbidden')
-          }
+
         })
       },
       createProject() {

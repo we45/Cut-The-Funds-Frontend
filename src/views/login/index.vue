@@ -68,12 +68,8 @@ import conf from '../../../configure.json'
       methods: {
 
         onSubmit() {
-        let api_url = conf.API_URL
-          let fullLoginUrl = api_url+'/users/login/'
-          const formData = {
-            email: this.email,
-            password: this.password
-          }
+        let api_url = conf.API_URL;
+          let fullLoginUrl = api_url+'/users/login/';
           this.errors = [];
           if(!this.email) this.errors.push("Email required.");
           if(!this.password) this.errors.push("Password required.");
@@ -98,22 +94,6 @@ import conf from '../../../configure.json'
              this.errors.push('Invalid Email or Password')
             this.$router.push({path: '/'})
         })
-          // this.$store.dispatch('login', formData).then(res => {
-          //   let myVar = setInterval(myTimer, 1000);
-          //   let token = localStorage.getItem('token')
-          //   console.log(token)
-          //   if (token != null) {
-          //     window.location.href = "/home"
-          //     // this.$router.push({path: '/home'})
-          //   } else {
-          //     this.$router.push({path: '/'})
-          //     // this.$router.push({path: '/'})
-          //     this.errors.push('Invalid Email or Password')
-          //   }
-          // }).catch(() => {
-          //   this.errors.push('Invalid Email or Password')
-          //   this.$router.push({path: '/'})
-          // })
         }
       }
     }

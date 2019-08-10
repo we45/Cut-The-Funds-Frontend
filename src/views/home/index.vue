@@ -28,7 +28,7 @@
 
 <script>
   import axios from 'axios'
-
+  import conf from '../../../configure.json'
   export default {
     name: 'Home',
     data() {
@@ -47,7 +47,8 @@
     },
     methods: {
       fetchData() {
-        let api_url = process.env.API_URL;
+        // let api_url = process.env.API_URL;
+        let api_url = conf.API_URL
         let dashboard_url = api_url+'/expenses/dash';
         axios.get(dashboard_url,{headers: {
             'Authorization': localStorage.getItem('token')
