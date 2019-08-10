@@ -1,15 +1,8 @@
 version: "3"
 services:
-  nginx:
-    image: we45/cut-the-funds-nginx:latest
-    ports:
-      - "80:80"
-    depends_on:
-      - ctf_frontend
-    links:
-      - ctf_frontend
   ctf_frontend:
     image: we45/cut-the-funds-frontend:latest
+    restart: always
     environment:
       - CTF_NODEJS_IP=ctf_nodejs
     expose:
@@ -18,11 +11,12 @@ services:
       - "5000:5000"
   ctf_nodejs:
     image: we45/cut-the-funds-nodejs:latest
+    restart: always
     environment:
       - MONGO_IP=mongo_db
       - MYSQL_IP=mysql_db
-      - MYSQL_USER=$DB_USER
-      - MYSQL_PASSWORD=$DB_PASSWD
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=hegemony86
       - MYSQL_DATABASE=expenses
     expose:
       - "3000"
@@ -34,15 +28,17 @@ services:
       - mysql_db
   mongo_db:
     image: we45/cut-the-funds-mongodb:latest
+    restart: always
     expose:
       - "27017"
     ports:
       - "27017:27017"
   mysql_db:
     image: we45/cut-the-funds-mysql:latest
+    restart: always
     environment:
       - MYSQL_DATABASE=expenses
-      - MYSQL_ROOT_PASSWORD=$DB_PASSWD
+      - MYSQL_ROOT_PASSWORD=hegemony86
     expose:
       - "3306"
     ports:
