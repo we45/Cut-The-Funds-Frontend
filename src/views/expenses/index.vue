@@ -217,7 +217,7 @@
         userType: ''
       }
     },
-    created() {
+    mounted() {
       this.userType = localStorage.getItem('userType')
       this.param = this.$route.params.projectId
       this.fetchData()
@@ -301,6 +301,8 @@
           .then(res => {
             this.$router.push({path: '/expenses'})
             this.$refs.createExpense.hide()
+            this.fetchData()
+            // this.fetch_projects()
           }).catch(error => {
           console.log(error)
         })
@@ -310,7 +312,7 @@
           axios.get('/expenses/project_expenses/' + this.param)
             .then(res => {
               if (res.status === 200) {
-                for ([key, val] of Object.entries(res.data)) {
+                for (const [key, val] of Object.entries(res.data)) {
                   this.items.push({
                     name: val.name,
                     amount: val.amount,
@@ -337,7 +339,7 @@
           axios.get('/expenses/get_my_expenses/')
             .then(res => {
               if (res.status === 200) {
-                for ([key, val] of Object.entries(res.data)) {
+                for (const [key, val] of Object.entries(res.data)) {
                   this.items.push({
                     name: val.name,
                     amount: val.amount,
@@ -367,7 +369,7 @@
           axios.get('/projects/user_projects/')
             .then(res => {
               if (res.status === 200) {
-                for ([key, val] of Object.entries(res.data)) {
+                for (const [key, val] of Object.entries(res.data)) {
                   this.projectList.push({value: val._id, text: val.name})
                 }
               } else {
@@ -387,7 +389,31 @@
             }
           })
         }
-      }
+      },
+      // fetch_projects(){
+      //   axios.get('/projects/user_projects/')
+      //       .then(res => {
+      //         if (res.status === 200) {
+      //           for (const [key, val] of Object.entries(res.data)) {
+      //             this.projectList.push({value: val._id, text: val.name})
+      //           }
+      //         } else {
+      //           this.$router.push('/forbidden')
+      //         }
+      //       }).catch(error => {
+      //       if (error.response.status === 404) {
+      //         this.$router.push('/not_found')
+      //       } else if (error.response.status === 403) {
+      //         localStorage.removeItem('token');
+      //         localStorage.removeItem('userType');
+      //         localStorage.removeItem('email');
+      //         // this.$router.push({path: '/'})
+      //         window.location.href = "/"
+      //       } else {
+      //         this.$router.push('/forbidden')
+      //       }
+      //     })
+      // }
     }
   }
 </script>

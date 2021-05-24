@@ -12,6 +12,7 @@
           </b-card>
         </b-col>
         <b-col>
+          {{ ApprovedAllData }}
           <b-card border-variant="default"
                   header="Approved v/s Unapproved Expenses"
                   header-bg-variant="default"
@@ -60,11 +61,11 @@
                 const total  = res.data.approvedStats.total
                 const disApproved = (total-approved)
                 this.ApprovedAllData.push(['Approved', approved], ['UnApproved', disApproved])
-                for ([key, val] of Object.entries(res.data.expReason)) {
+                for (const [key, val] of Object.entries(res.data.expReason)) {
                   this.expendeReasonChart.push([val._id,val.total])
                 }
                 }else if(this.userType === 'manager'){
-                  for ([key, val] of Object.entries(res.data)) {
+                  for (const [key, val] of Object.entries(res.data)) {
                     for (let exp of val){
                       if (exp.isApproved === true){
                         this.approveCount += 1
@@ -80,15 +81,16 @@
 
                     }
                   }
-                  for ([key, val] of Object.entries(this.reasonObj)) {
+                  for (const [key, val] of Object.entries(this.reasonObj)) {
                     this.expendeReasonChart.push([key,val])
                   }
+                 this.ApprovedAllData.push(['Approved', this.approveCount], ['UnApproved', this.approveCount])
+                 console.log('ApprovedAllData', this.ApprovedAllData)
                 }
               }
                else {
                 this.$router.push('/forbidden')
               }
-              this.ApprovedAllData.push(['Approved', this.approveCount], ['UnApproved', this.approveCount])
             }).catch(error => {
             if (error.response.status === 404) {
               this.$router.push('/not_found')

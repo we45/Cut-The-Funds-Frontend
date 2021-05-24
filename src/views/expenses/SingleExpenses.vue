@@ -117,7 +117,7 @@
       }
     },
 
-    mounted() {
+    created() {
       this.userType = localStorage.getItem('userType')
       this.param = this.$route.params.expenseId
       this.fetchData()
@@ -132,7 +132,7 @@
                 this.merchant = res.data.merchant
                 this.reason = res.data.reason
                 this.id = res.data._id
-                for ([key, val] of Object.entries(res.data.files)) {
+                for (const [key, val] of Object.entries(res.data.files)) {
                   const fileUrl = val.fileUri
                   const arr = fileUrl.split('/');
                   const lastItem = arr.pop();
@@ -179,6 +179,7 @@
             if (response.status === 200) {
               this.isExpenseFile = false
               this.$router.push('/single_expense/' + this.id)
+              this.fetchData()
             }
           })
           .catch(error => {

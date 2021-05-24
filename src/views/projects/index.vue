@@ -52,9 +52,9 @@
                 <!--<p v-html="row.item.remarks"></p>-->
               <!--</template>-->
               <template slot="_id" slot-scope="row">
-                <b-button size="sm" @click="editProject(row.item._id, row.item.name, row.item.limit)" class="mr-1">
+                <!-- <b-button size="sm" @click="editProject(row.item._id, row.item.name, row.item.limit)" class="mr-1">
                  Edit
-                </b-button>
+                </b-button> -->
                 <router-link :to="{ path: '/expenses/'+ row.item._id }" class="btn btn-primary">Expenses</router-link>
               </template>
 
@@ -194,6 +194,7 @@
       fetchData() {
         userAxios.get('/projects/list_projects/')
           .then(res => {
+            this.items = []
             for (const val of res.data){
             this.items.push({name: val.name, manager: val.manager.email, limit: val.limit, remarks: val.remarks, _id: val._id})
               }
@@ -216,6 +217,7 @@
           .then(res => {
             this.$router.push({path: '/projects'})
             this.isProjectCreate = false
+            this.fetchData()
           }).catch(error => {
           console.log(error)
         })
@@ -243,6 +245,7 @@
           .then(res => {
             this.$router.push({path: '/projects'})
             this.isProjectEdit = false
+            this.fetchData()
           }).catch(error => {
           console.log(error)
         })
