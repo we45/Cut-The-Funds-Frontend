@@ -12,7 +12,6 @@
           </b-card>
         </b-col>
         <b-col>
-          {{ ApprovedAllData }}
           <b-card border-variant="default"
                   header="Approved v/s Unapproved Expenses"
                   header-bg-variant="default"
@@ -85,7 +84,6 @@
                     this.expendeReasonChart.push([key,val])
                   }
                  this.ApprovedAllData.push(['Approved', this.approveCount], ['UnApproved', this.approveCount])
-                 console.log('ApprovedAllData', this.ApprovedAllData)
                 }
               }
                else {

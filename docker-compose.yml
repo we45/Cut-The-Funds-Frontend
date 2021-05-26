@@ -25,7 +25,7 @@ services:
     ports:
       - "3306:3306"
   ctf_frontend:
-    image: we45/cut-the-funds-frontend:5.0.1
+    image: we45/cut-the-funds-frontend:5.0.2
     environment:
       - API_URL=http://$SERVERIP:3000
     expose:

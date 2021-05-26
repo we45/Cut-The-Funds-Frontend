@@ -48,9 +48,9 @@
                      :sort-desc.sync="sortDesc"
                      @filtered="onFiltered"
             >
-              <!--<template slot="remarks" slot-scope="row">-->
-                <!--<p v-html="row.item.remarks"></p>-->
-              <!--</template>-->
+              <!-- <template slot="remarks" slot-scope="row">
+                <p v-html="row.item.remarks"></p>
+              </template> -->
               <template slot="_id" slot-scope="row">
                 <!-- <b-button size="sm" @click="editProject(row.item._id, row.item.name, row.item.limit)" class="mr-1">
                  Edit
